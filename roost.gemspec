@@ -6,9 +6,9 @@ require 'roost/version'
 Gem::Specification.new do |spec|
   spec.name          = "roost"
   spec.version       = Roost::VERSION
-  spec.authors       = ["Rick Byington"]
-  spec.email         = ["rick@byingtondesign.com"]
-  spec.summary       = %q{Roost.me Ruby API library.}
+  spec.authors       = ["Notice Software","Rick Byington"]
+  spec.email         = ["support@noticesoftware.com"]
+  spec.summary       = %q{Official Roost.me Ruby API library.}
   spec.description   = %q{}
   spec.homepage      = ""
   spec.license       = "MIT"
