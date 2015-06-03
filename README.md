@@ -1,12 +1,9 @@
 # Roost
 
-This is the official Ruby Gem for the Roost API.
+This is the official Ruby gem for the Roost API.
 
-Roost is the easy way to send Safari Push Notifications to your website visitors.
-Desktop Push Notifications provide a new marketing channel to drive visitors back to your site.
-With Safari on OS X Mavericks, visitors receive notifications in the top right corner of their computer screen.
-This ‘gentle’ touch is great for status updates or trending information. To learn more see roost.me
-
+[Web Push by Roost](https://goroost.com) allows websites to send notifications to their site visitors for
+updates about new posts, content, or other information. Available in Chrome (Android and desktop) and Safari (desktop).
 
 ## Installation
 
@@ -24,15 +21,18 @@ Or install it yourself as:
 
 ## Usage
 
-To send notifications you first need to create an account on http://roost.me.
+To send notifications you will first need to create an account on the [Roost website](https://goroost.com).
 
-Then make sure you have ENV["ROOST_APPKEY"] and ENV["ROOST_APPSECRET"] set.
-These can be found in the http://roost.me dashboard under settings.
-If you are using the Heroku Add-On these are already configured for you.
+Set your Roost app key and app secret to the following environment variables: ENV["ROOST_APPKEY"] / ENV["ROOST_APPSECRET"]
+These can be found in the [Roost dashboard](https://dashboard.goroost.com) under settings -> API.
 
-Once you have some registered Safari visitors on your site you can use the following code to send them a message.
+Easliy send notifications through Roost. Notifications incule text (alert) and a landing page URL (url).
 ```
-    response = Roost::API.send({alert:'Welcome to Roost',url:'http://roost.me'})
+    alert = 'Thanks for subscribing for notifications'
+    url = 'https://goroost.com'
+
+    response = Roost::API.send({alert: alert,url: url})
+
     if response['success'] == true
         ..success..
     else
@@ -42,7 +42,7 @@ Once you have some registered Safari visitors on your site you can use the follo
 
 ## Contributing
 
-1. Fork it ( http://github.com/rickbyington/roost/fork )
+1. Fork it ( https://github.com/RoostPush/Roost-Ruby-Gem )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

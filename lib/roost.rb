@@ -1,9 +1,10 @@
-require "roost/version"
+require 'roost/version'
 require 'json'
+require 'net/http'
 
 module Roost
-	class API
-		def self.send(opts)
+  class API
+    def self.send(opts)
       opts = opts||{}
 
       key =  opts[:app_key]||ENV["ROOST_APPKEY"]
@@ -13,15 +14,15 @@ module Roost
       raise "opts.alert must be given." if opts[:alert].nil? || opts[:alert].empty?
       raise "opts.url must be given." if opts[:url].nil? || opts[:url].empty?
 
-      uri = URI.parse("https://get.roost.me/api/push")
+      uri = URI.parse("https://go.goroost.com/api/push")
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       request = Net::HTTP::Post.new(uri.path, initheader = {'Content-Type' =>'application/json'})
       request.basic_auth key,secret
 
       request.body = {
-      		alert:opts[:alert],
-      		url:opts[:url]
+              alert:opts[:alert],
+              url:opts[:url]
       }.to_json
 
       response = http.request(request)
@@ -29,11 +30,11 @@ module Roost
         return JSON.parse(response.body)
       else
         return {
-            "success"=>false,
-            "message"=>response.message,
-            "code"=>response.code
+          "success"=>false,
+          "message"=>response.message,
+          "code"=>response.code
         }
       end
-		end
-	end
+    end
+  end
 end
