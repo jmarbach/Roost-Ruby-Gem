@@ -20,10 +20,31 @@ module Roost
       request = Net::HTTP::Post.new(uri.path, initheader = {'Content-Type' =>'application/json'})
       request.basic_auth key,secret
 
-      request.body = {
+      body = {
               alert:opts[:alert],
               url:opts[:url]
-      }.to_json
+      }
+
+      if opts[:aliases] && !opts[:aliases].empty?
+          body[:aliases] =  opts[:aliases]
+      end
+      if opts[:device_tokens] && !opts[:device_tokens].empty?
+          body[:device_tokens] =  opts[:device_tokens]
+      end
+      if opts[:exclude_tokens] && !opts[:exclude_tokens].empty?
+          body[:exclude_tokens] =  opts[:exclude_tokens]
+      end
+      if opts[:schedule_for] && !opts[:schedule_for].empty?
+          body[:schedule_for] =  opts[:schedule_for]
+      end
+      if opts[:segments] && !opts[:segments].empty?
+          body[:segments] =  opts[:segments]
+      end
+      if opts[:test_type] && !opts[:test_type].empty?
+          body[:test_type] =  opts[:test_type]
+      end
+
+      request.body = body.to_json
 
       response = http.request(request)
       if response.code == "200"

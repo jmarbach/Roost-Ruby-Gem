@@ -26,18 +26,55 @@ To send notifications you will first need to create an account on the [Roost web
 Set your Roost app key and app secret to the following environment variables: ENV["ROOST_APPKEY"] / ENV["ROOST_APPSECRET"]
 These can be found in the [Roost dashboard](https://dashboard.goroost.com) under settings -> API.
 
-Easliy send notifications through Roost. Notifications incule text (alert) and a landing page URL (url).
+### Basic Send
+
+Easily send notifications through Roost. Notifications must include text (alert) and a landing page URL (url).
+
 ```
-    alert = 'Thanks for subscribing for notifications'
-    url = 'https://goroost.com'
+alert = 'Thanks for subscribing for notifications'
+url = 'https://goroost.com'
 
-    response = Roost::API.send({alert: alert,url: url})
+response = Roost::API.send({alert: alert,url: url})
 
-    if response['success'] == true
-        ..success..
-    else
-        ..failure..
-    end
+if response['success'] == true
+    ..success..
+else
+    ..failure..
+end
+```
+
+### Sending With Parameters
+
+It is possible to target segments of your subscribers, or even individuals, and send scheduled notifications or advanced tests on notification sending. You must first have set these segments or identifiers via our [JavaScript API](http://docs.goroost.com/v1.0/docs/api-basics).
+
+#### Accepted Parameters
+
+| Key Name | Description |
+| :--- | :--- |
+| segments | List of Segments. If included, notification will be sent only to subscribers associated with one or more of the listed Segments.|
+| aliases | List of user Aliases. If included, notification will be sent only to subscribers listed. |
+| device_tokens | List of device tokens on which users registered. If included, notification will be sent only to devices listed. |
+| exclude_tokens | List of device tokens. If included, devices listed will be excluded when the notification is sent. |
+| test_type | Specifies that progressive A/B split-testing will be done to optimize delivery. If included, value must be: 'MULTI_ARM_BANDIT'. In this case, alert must also be specified as an array with a list of alternate titles (EX: ['A Notification Title', 'Alternate Title', 'Third Title']). |
+| schedule_for | Time when the notification will be scheduled for delivery. Format: "YYYY-MM-DDTHH:mm:SSZ". Time is specified in Zulu/GMT. **Example:** '2015-06-20T08:00:00Z' |
+
+```
+alert = 'Thanks for subscribing for notifications'
+url = 'https://goroost.com'
+aliases = ['dan@abc123.com', 'burton@xyz456', 'sattles@lmno789.com']
+device_tokens = ['abcdefg123456789', '987654321gfedcba']
+exclude_tokens = ['lmnopqrs789']
+schedule_for = '2015-06-05T15:17:00Z'
+segments = ['Story', 'News', 'Weather']
+test_type = 'MULTI_ARM_BANDIT'
+
+response = Roost::API.send({alert: alert,url: url, segments: segments, schedule_for: schedule_for})
+
+if response['success'] == true
+    ..success..
+else
+    ..failure..
+end
 ```
 
 ## Contributing
