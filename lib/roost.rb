@@ -43,6 +43,9 @@ module Roost
       if opts[:test_type] && !opts[:test_type].empty?
           body[:test_type] =  opts[:test_type]
       end
+      if opts[:imageURL] && !opts[:imageURL].empty?
+          body[:imageURL] =  opts[:imageURL]
+      end
 
       request.body = body.to_json
 

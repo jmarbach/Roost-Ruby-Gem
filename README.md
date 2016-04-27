@@ -57,6 +57,7 @@ It is possible to target segments of your subscribers, or even individuals, and 
 | exclude_tokens | List of device tokens. If included, devices listed will be excluded when the notification is sent. |
 | test_type | Specifies that progressive A/B split-testing will be done to optimize delivery. If included, value must be: 'MULTI_ARM_BANDIT'. In this case, alert must also be specified as an array with a list of alternate titles (EX: ['A Notification Title', 'Alternate Title', 'Third Title']). |
 | schedule_for | Time when the notification will be scheduled for delivery. Format: "YYYY-MM-DDTHH:mm:SSZ". Time is specified in Zulu/GMT. **Example:** '2015-06-20T08:00:00Z' |
+| imageURL | URL of image which is displayed with the notification and in the Bell notification center. |
 
 ```
 alert = 'Thanks for subscribing for notifications'
@@ -67,6 +68,7 @@ exclude_tokens = ['lmnopqrs789']
 schedule_for = '2015-06-05T15:17:00Z'
 segments = ['Story', 'News', 'Weather']
 test_type = 'MULTI_ARM_BANDIT'
+imageURL = 'http://url-of-your-custom-image'
 
 response = Roost::API.send({alert: alert,url: url, segments: segments, schedule_for: schedule_for})
 
